@@ -27,9 +27,7 @@ postgres:
   build: ./postgres
   ports:
     - "5432:5432"
-  environment:
-    - POSTGRES_USER=postgres
-    - POSTGRES_PASSWORD=secret
+  env_file: .env
   container_name: postgres
   volumes:
     - ./pgdata/:/var/lib/postgresql/data/
