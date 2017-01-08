@@ -6,6 +6,7 @@ All service in a different containers.
 
 
 nginx:
+
 	Docker image: nginx:latest
 	
 	To customize conf edit ./nginx/sites-enabled/app_nginx.conf and ./nginx/uwsgi_params (for uwsgi params)
@@ -24,6 +25,7 @@ postgres:
 	
 
 web:
+
 	based on python:latest
 	
 	To customize uwsgi edit ./web/app_uwsgi.ini
@@ -31,7 +33,7 @@ web:
 	Django application code in ./web/app/ (if you are using existing project dont' forget migrate your models)
 	
 
-to run:
+run it
 
 docker-compose up
 
