@@ -1,0 +1,35 @@
+web:
+  build: ./web
+  container_name: web
+  volumes:
+    - ./web/app:/app/
+  command: uwsgi --ini /app_uwsgi.ini
+  ports:
+    - "8001:8001"
+  links:
+    - postgres:postgres
+  env_file: .env
+
+nginx:
+  build: ./nginx 
+  container_name: nginx
+  volumes:
+    - ./log/nginx/:/var/log/nginx
+    - ./web/app/media:/app/media
+    - ./web/app/static:/app/static
+  links:
+    - web:web
+  command: /bin/bash -c "nginx -g 'daemon off;'"
+  ports:
+    - "80:80"
+
+postgres:
+  build: ./postgres
+  ports:
+    - "5432:5432"
+  environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=secret
+  container_name: postgres
+  volumes:
+    - ./pgdata/:/var/lib/postgresql/data/
